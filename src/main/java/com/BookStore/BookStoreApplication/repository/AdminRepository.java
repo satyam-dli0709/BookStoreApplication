@@ -6,9 +6,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface AdminRepository extends JpaRepository<Admin,Long> {
 
      @Query("SELECT a.adminId from Admin a where a.adminName = :admin")
-     long findByName(String admin);
+     Optional<Long> findByName(String admin);
 }

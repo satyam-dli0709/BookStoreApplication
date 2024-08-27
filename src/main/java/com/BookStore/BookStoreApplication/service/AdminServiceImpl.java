@@ -20,7 +20,12 @@ public class AdminServiceImpl implements  AdminService{
     public Admin loginAdmin(String adminName , String password) {
       //  Optional<Admin> optionalAdmin = Optional.ofNullable(adminRepository.findByName(adminName));
 
-        long adminId = adminRepository.findByName(adminName);
+//        long adminId = adminRepository.findByName(adminName);
+//        if (adminRepository.findByName(adminName) == null){
+//            throw new CustomInvalidException("admin not found");
+//        }
+        long adminId =   adminRepository.findByName(adminName)
+                .orElseThrow(() -> new CustomInvalidException("Admin not found with name: " + adminName));
         Admin admin = adminRepository.findById(adminId).orElseThrow(()->new CustomInvalidException("Admin not found"));
         if(password.equals(admin.getPassword()))
             {
