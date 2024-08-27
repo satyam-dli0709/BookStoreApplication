@@ -3,10 +3,7 @@ package com.BookStore.BookStoreApplication.controller;
 import com.BookStore.BookStoreApplication.model.Admin;
 import com.BookStore.BookStoreApplication.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/bookstore_user/admin")
@@ -20,8 +17,8 @@ public class AdminController {
 }
 
 @PostMapping("/login")
-    public Admin loginAdmin (@RequestBody Admin admin){
-   return  adminService.loginAdmin(admin.getAdminName(),admin.getPassword());
+    public Admin loginAdmin (@RequestParam String adminName ,@RequestParam String password ){
+   return  adminService.loginAdmin(adminName,password);
 
 }
 

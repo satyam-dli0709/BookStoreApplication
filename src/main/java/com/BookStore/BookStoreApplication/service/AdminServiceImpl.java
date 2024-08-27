@@ -19,21 +19,17 @@ public class AdminServiceImpl implements  AdminService{
     @Override
     public Admin loginAdmin(String adminName , String password) {
       //  Optional<Admin> optionalAdmin = Optional.ofNullable(adminRepository.findByName(adminName));
-        Optional<Admin> optionalAdmin = Optional.ofNullable(adminRepository.findByName(adminName));
-        if (optionalAdmin.isPresent()){
-            Admin admin = optionalAdmin.get();
-            if (password.equals(admin.getPassword())){
-                return admin ;
-            }else {
-                throw new IllegalArgumentException("Invalid Password");
+
+        long adminId = adminRepository.findByName(adminName);
+        Admin admin = adminRepository.findById(adminId).orElseThrow(()->new CustomInvalidException("Admin not found"));
+        if(password.equals(admin.getPassword()))
+            {
+                return  admin;
+            }
+            else
+            {
+                throw new CustomInvalidException("Invalid credentials");
             }
         }
-        else {
-            throw new CustomInvalidException("admin not found ");
-        }
-
-
-
-    }
 
 }
