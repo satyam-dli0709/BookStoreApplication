@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+
 @RestController
 @RequestMapping("/bookstore_user/admin")
 public class AdminController {
@@ -22,13 +24,16 @@ private ProductService productService;
 
 
 @PostMapping("/registration")
-    public Admin registerAdmin (@RequestBody Admin admin){
-       return adminService.registerAdmin(admin);
+    public ResponseEntity<Admin> registerAdmin (@RequestBody Admin admin){
+    admin.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+    Admin registeredAdmin = adminService.registerAdmin(admin);
+       return ResponseEntity.ok(registeredAdmin);
 }
 
 @PostMapping("/login")
-    public Admin loginAdmin (@RequestParam String adminName ,@RequestParam String password ){
-   return  adminService.loginAdmin(adminName,password);
+    public ResponseEntity<String> loginAdmin (@RequestParam String adminName ,@RequestParam String password ){
+     adminService.loginAdmin(adminName,password);
+     return ResponseEntity.ok("admin logged in successfully");
 }
     @PostMapping("/add/book")
     public ResponseEntity<Product> addProduct(@Valid @RequestBody Product product) {
