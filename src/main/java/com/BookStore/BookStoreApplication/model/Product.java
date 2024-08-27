@@ -46,4 +46,7 @@ public class Product {
     @Column(name = "updated_at")
     private Timestamp updated_at;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private CartItem cartItem;
+
 }
