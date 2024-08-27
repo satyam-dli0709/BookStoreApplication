@@ -1,5 +1,7 @@
 package com.BookStore.BookStoreApplication.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -13,6 +15,7 @@ import java.sql.Timestamp;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,7 +49,7 @@ public class Product {
     @Column(name = "updated_at")
     private Timestamp updated_at;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "products", cascade = CascadeType.ALL,orphanRemoval = true)
     private CartItem cartItem;
 
 }

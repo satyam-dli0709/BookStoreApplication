@@ -1,5 +1,7 @@
 package com.BookStore.BookStoreApplication.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +14,7 @@ import java.sql.Timestamp;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userId")
 public class User {
 
     @Id
@@ -29,4 +32,6 @@ public class User {
 
     @Column(name = "created_at", nullable = false)
     private Timestamp createdAt;
+
+
 }
