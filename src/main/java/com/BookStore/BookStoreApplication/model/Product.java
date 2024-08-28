@@ -52,4 +52,15 @@ public class Product {
     @OneToOne(mappedBy = "products", cascade = CascadeType.ALL,orphanRemoval = true)
     private CartItem cartItem;
 
+    @PrePersist
+    protected void onCreate() {
+        created_at = new Timestamp(System.currentTimeMillis());
+        updated_at = new Timestamp(System.currentTimeMillis());
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updated_at = new Timestamp(System.currentTimeMillis());
+    }
+
 }
