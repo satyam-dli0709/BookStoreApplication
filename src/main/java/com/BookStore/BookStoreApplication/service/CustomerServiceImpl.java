@@ -1,5 +1,6 @@
 package com.BookStore.BookStoreApplication.service;
 
+import com.BookStore.BookStoreApplication.exception.CustomInvalidException;
 import com.BookStore.BookStoreApplication.model.CustomerDetails;
 import com.BookStore.BookStoreApplication.model.User;
 import com.BookStore.BookStoreApplication.repository.CustomerRepository;
@@ -11,7 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CustomerServiceImpl implements CustomerService {
+public class
+CustomerServiceImpl implements CustomerService {
 
     @Autowired
     private CustomerRepository customerRepository;
@@ -34,6 +36,8 @@ public class CustomerServiceImpl implements CustomerService {
             existingDetails.setCustomerName(customerDetails.getCustomerName());
             existingDetails.setEmail(customerDetails.getEmail());
             existingDetails.setPhoneNumber(customerDetails.getPhoneNumber());
+            User user = userRepository.findById(customerDetails.getUser().getUserId()).orElseThrow(()-> new CustomInvalidException("No user found"));
+            existingDetails.setUser(user);
             return customerRepository.save(existingDetails);
         }
         else{
