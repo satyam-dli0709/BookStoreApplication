@@ -1,12 +1,16 @@
 package com.BookStore.BookStoreApplication.controller;
 
+import com.BookStore.BookStoreApplication.model.Cart;
 import com.BookStore.BookStoreApplication.model.CartItem;
+import com.BookStore.BookStoreApplication.model.User;
 import com.BookStore.BookStoreApplication.service.CartImplementation;
+import jakarta.validation.Valid;
 import jdk.dynalink.linker.LinkerServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
@@ -17,9 +21,11 @@ public class CartItemController {
     CartImplementation cartImplementation;
 
     @PostMapping("/add_cart_item")
-    public CartItem addProduct(@RequestParam long productId)
+    public Cart addProduct(@RequestParam long productId,@Valid @RequestBody Cart cart)
     {
-        return cartImplementation.addProductToCart(productId);
+        cart.setCartTimeStamp(new Timestamp(System.currentTimeMillis()));
+//        cart.getUser().setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        return cartImplementation.addProductToCart(productId,cart);
     }
 
     @PatchMapping("/cart_item_quantity")
