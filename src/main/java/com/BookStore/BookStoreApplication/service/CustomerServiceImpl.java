@@ -6,6 +6,7 @@ import com.BookStore.BookStoreApplication.repository.CustomerRepository;
 import com.BookStore.BookStoreApplication.repository.UserRepository;
 import com.BookStore.BookStoreApplication.exception.CustomerNotFoundException;
 import com.BookStore.BookStoreApplication.exception.UserNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDetails addCustomerDetails(CustomerDetails customerDetails) {
+        User user = userRepository.findById(customerDetails.getUser().getUserId()).orElseThrow(() -> new EntityNotFoundException("User not found"));
+        customerDetails.setUser(user);
         return customerRepository.save(customerDetails);
     }
 
