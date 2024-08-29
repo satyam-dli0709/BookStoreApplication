@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/bookstore_user")
 public class UserController {
 
@@ -26,8 +27,15 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestParam String username, @RequestParam String password) {
-         userService.loginUser(username,password);
-         return ResponseEntity.ok("User logged in successfully");
+       if(userService.loginUser(username,password))
+       {
+           return ResponseEntity.ok("User logged in successfully");
+       }
+       else
+       {
+           return ResponseEntity.ok("Invalid credintial");
+       }
+
     }
 
 

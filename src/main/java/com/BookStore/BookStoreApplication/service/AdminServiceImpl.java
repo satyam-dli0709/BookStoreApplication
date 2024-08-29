@@ -29,23 +29,25 @@ public class AdminServiceImpl implements  AdminService{
 
         admin.setPassword(passwordEncoder.encode(admin.getPassword()));
         String username = admin.getAdminName();
-        if (adminRepository.findByName(username).isPresent()) {
+        if (adminRepository.findByName(username)!=null) {
             throw new CustomInvalidException("Admin with this Username already exists.");
         }
-        Admin saveAdmin=adminRepository.save(admin);
+        return adminRepository.save(admin);
 
-        return saveAdmin;
     }
 
     @Override
     public boolean loginAdmin(String adminName , String password) {
-        long adminId =   adminRepository.findByName(adminName)
-                .orElseThrow(() -> new CustomInvalidException("Admin not found with name: " + adminName));
-        Admin admin = adminRepository.findById(adminId).orElseThrow(()->new CustomInvalidException("Admin not found"));
+        Admin admin1 =   adminRepository.findByName(adminName);
+        if(admin1==null)
+        {
+            throw new CustomInvalidException("Admin not found");
+        }
+        Admin admin = adminRepository.findById(admin1.getAdminId()).orElseThrow(()->new CustomInvalidException("Admin not found"));
 
 
         if (admin != null) {
-            return passwordEncoder.matches(password, admin.getAdminName());
+            return passwordEncoder.matches(password, admin.getPassword());
         }
         else
         {
