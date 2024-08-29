@@ -6,5 +6,5 @@ import org.springframework.stereotype.Service;
 @Service
 public interface AdminService {
     public Admin registerAdmin (Admin admin);
-    public Admin loginAdmin (String adminName , String password);
+    public boolean loginAdmin (String adminName , String password);
 }

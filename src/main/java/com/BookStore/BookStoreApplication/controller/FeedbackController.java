@@ -6,6 +6,7 @@ import jakarta.persistence.GeneratedValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.beans.FeatureDescriptor;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -23,11 +24,18 @@ public class FeedbackController {
 
         return feedbackImplementation.addFeedback(productId,feedBack);
     }
-    @GetMapping("/get/feedback")
+    @GetMapping("/get/AllFeedback")
     public List<FeedBack> getAllFeedback()
     {
         return feedbackImplementation.findAllFeedback();
     }
+
+    @GetMapping("get/feedback")
+    public List<FeedBack> getFeedbackByProductId(@RequestParam long productId)
+    {
+        return feedbackImplementation.getByProductId(productId);
+    }
+
 
 
 }

@@ -24,6 +24,7 @@ public class AdminController {
 private ProductService productService;
 
 
+
     @PostMapping("/registration")
     public ResponseEntity<Admin> registerAdmin(@RequestBody Admin admin) {
         admin.setCreatedAt(new Timestamp(System.currentTimeMillis()));
