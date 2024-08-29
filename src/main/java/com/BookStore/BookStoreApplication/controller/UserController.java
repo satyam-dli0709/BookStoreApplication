@@ -18,6 +18,7 @@ public class UserController {
     @PostMapping("/registration")
     public ResponseEntity<User> registerUser(@RequestBody User user) {
         user.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+
         User registeredUser = userService.registerUser(user);
         return ResponseEntity.ok(registeredUser);
     }
@@ -27,4 +28,6 @@ public class UserController {
          userService.loginUser(username,password);
          return ResponseEntity.ok("User logged in successfully");
     }
+
+
 }

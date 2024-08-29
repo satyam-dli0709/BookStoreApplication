@@ -42,9 +42,16 @@ public class FeedbackImplementation implements FeedbackService{
 
     }
 
+    @Override
+    public List<FeedBack> getByProductId(long productId) {
+        return feedbackRepository.findByProductId(productId);
+    }
+
     public List<FeedBack> findAllFeedback()
     {
         return feedbackRepository.findAll();
     }
+
+
 
 }

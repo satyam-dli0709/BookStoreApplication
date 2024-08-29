@@ -2,6 +2,7 @@ package com.BookStore.BookStoreApplication.controller;
 
 import com.BookStore.BookStoreApplication.exception.ProductNotFoundException;
 import com.BookStore.BookStoreApplication.model.Admin;
+import com.BookStore.BookStoreApplication.model.Order;
 import com.BookStore.BookStoreApplication.model.Product;
 import com.BookStore.BookStoreApplication.service.AdminService;
 import com.BookStore.BookStoreApplication.service.AdminServiceImpl;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @RestController
 @RequestMapping("/bookstore_user/admin")
@@ -22,6 +24,7 @@ public class AdminController {
 
 @Autowired
 private ProductService productService;
+
 
 
     @PostMapping("/registration")
@@ -36,6 +39,7 @@ private ProductService productService;
         adminService.loginAdmin(adminName, password);
         return ResponseEntity.ok("admin logged in successfully");
     }
+
 
     @PostMapping("/add/book")
     public ResponseEntity<Product> addProduct(@Valid @RequestBody Product product) {
@@ -61,4 +65,11 @@ private ProductService productService;
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
+
+    @GetMapping("/get/orders")
+    public List<Order> getAllOrders()
+    {
+        return adminService.getAllOrder();
+    }
+
 }

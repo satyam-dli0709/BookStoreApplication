@@ -2,39 +2,61 @@ package com.BookStore.BookStoreApplication.service;
 
 import com.BookStore.BookStoreApplication.exception.CustomInvalidException;
 import com.BookStore.BookStoreApplication.model.Admin;
+import com.BookStore.BookStoreApplication.model.Order;
 import com.BookStore.BookStoreApplication.repository.AdminRepository;
+import com.BookStore.BookStoreApplication.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
+
 @Service
 public class AdminServiceImpl implements  AdminService{
     @Autowired
     private AdminRepository adminRepository;
+
+    @Autowired
+    PasswordEncoder passwordEncoder;
+
+
+
+    @Autowired
+    private OrderRepository orderRepository;
+
     @Override
     public Admin registerAdmin(Admin admin) {
-        return adminRepository.save(admin);
+
+        admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+        String username = admin.getAdminName();
+        if (adminRepository.findByName(username).isPresent()) {
+            throw new CustomInvalidException("Admin with this Username already exists.");
+        }
+        Admin saveAdmin=adminRepository.save(admin);
+
+        return saveAdmin;
     }
 
     @Override
-    public Admin loginAdmin(String adminName , String password) {
-      //  Optional<Admin> optionalAdmin = Optional.ofNullable(adminRepository.findByName(adminName));
-
-//        long adminId = adminRepository.findByName(adminName);
-//        if (adminRepository.findByName(adminName) == null){
-//            throw new CustomInvalidException("admin not found");
-//        }
+    public boolean loginAdmin(String adminName , String password) {
         long adminId =   adminRepository.findByName(adminName)
                 .orElseThrow(() -> new CustomInvalidException("Admin not found with name: " + adminName));
         Admin admin = adminRepository.findById(adminId).orElseThrow(()->new CustomInvalidException("Admin not found"));
-        if(password.equals(admin.getPassword()))
-            {
-                return  admin;
-            }
-            else
-            {
-                throw new CustomInvalidException("Invalid credentials");
-            }
+
+
+        if (admin != null) {
+            return passwordEncoder.matches(password, admin.getAdminName());
         }
+        else
+        {
+            throw  new CustomInvalidException("Invalid UserName and Password");
+        }
+
+        }
+
+    @Override
+    public List<Order> getAllOrder() {
+        return orderRepository.findAll();
+    }
 
 }
