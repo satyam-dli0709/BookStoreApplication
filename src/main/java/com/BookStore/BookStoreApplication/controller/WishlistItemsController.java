@@ -18,9 +18,9 @@ public class WishlistItemsController {
 
 
     @PostMapping("/add_wish_list")
-    public ResponseEntity<Wishlist> addItemToWishlist(@RequestParam Long userId, @RequestParam Long productId) {
+    public ResponseEntity<Object> addItemToWishlist(@RequestParam Long userId, @RequestParam Long productId) {
         Wishlist wishlist = wishlistItemsService.addProductToWishlist(userId, productId);
-        return ResponseEntity.ok(wishlist);
+        return new ResponseEntity<>("added wishlist successfully", HttpStatus.CREATED);
     }
 
     @DeleteMapping("/remove_wishlist_item")

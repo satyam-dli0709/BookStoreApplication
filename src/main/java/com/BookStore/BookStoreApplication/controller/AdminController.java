@@ -38,27 +38,29 @@ private ProductService productService;
     }
 
     @PostMapping("/add/book")
-    public ResponseEntity<Product> addProduct(@Valid @RequestBody Product product) {
-        return new ResponseEntity<>(productService.addProduct(product), HttpStatus.CREATED);
+    public ResponseEntity<Object> addProduct(@Valid @RequestBody Product product) {
+        productService.addProduct(product);
+        return new ResponseEntity<>("Added Successfully", HttpStatus.CREATED);
     }
 
     @PutMapping("/update/book/{product_id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable long id, @RequestBody Product product) {
+    public ResponseEntity<Object> updateProduct(@PathVariable("product_id") long id, @RequestBody Product product) {
         if (productService.getAllProducts().stream().noneMatch(p -> p.getId() == id)) {
             throw new ProductNotFoundException("Product with id " + id + " not found");
         } else {
             product.setId(id);
-            return new ResponseEntity<>(productService.updateProduct(product), HttpStatus.OK);
+            productService.updateProduct(product);
+            return new ResponseEntity<>("Updated Successfully", HttpStatus.OK);
         }
     }
 
-    @DeleteMapping("/delete/book/{product_id}")
-    public ResponseEntity<Object> deleteProduct(@PathVariable long id) {
+    @DeleteMapping("/delete/book")
+    public ResponseEntity<Object> deleteProduct(@RequestParam long id) {
         if (productService.getAllProducts().stream().noneMatch(product -> product.getId() == id)) {
             throw new ProductNotFoundException("Product with id " + id + " not found");
         } else {
             productService.deleteProduct(id);
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return new ResponseEntity<>("Deleted Successfully", HttpStatus.OK);
         }
     }
 }
