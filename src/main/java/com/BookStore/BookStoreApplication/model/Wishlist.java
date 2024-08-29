@@ -26,7 +26,7 @@ public class Wishlist {
     @Column(name = "created_at")
     private Timestamp created_at;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
     @JoinColumn(name = "userId")
     @NotNull
     private User user;
