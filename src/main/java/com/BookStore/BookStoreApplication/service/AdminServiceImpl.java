@@ -2,10 +2,14 @@ package com.BookStore.BookStoreApplication.service;
 
 import com.BookStore.BookStoreApplication.exception.CustomInvalidException;
 import com.BookStore.BookStoreApplication.model.Admin;
+import com.BookStore.BookStoreApplication.model.Order;
 import com.BookStore.BookStoreApplication.repository.AdminRepository;
+import com.BookStore.BookStoreApplication.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AdminServiceImpl implements  AdminService{
@@ -15,6 +19,10 @@ public class AdminServiceImpl implements  AdminService{
     @Autowired
     PasswordEncoder passwordEncoder;
 
+
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @Override
     public Admin registerAdmin(Admin admin) {
@@ -45,5 +53,10 @@ public class AdminServiceImpl implements  AdminService{
         }
 
         }
+
+    @Override
+    public List<Order> getAllOrder() {
+        return orderRepository.findAll();
+    }
 
 }
