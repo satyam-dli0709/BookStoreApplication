@@ -13,4 +13,6 @@ public interface WishlistItemService {
     List<WishlistItems> findAllWishlistItems();
 
     Wishlist addProductToWishlist(long userId, long productId);
+
+    Wishlist findWishlistByUserId(long userId);
 }
