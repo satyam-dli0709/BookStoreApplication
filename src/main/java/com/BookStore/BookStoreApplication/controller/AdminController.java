@@ -2,6 +2,7 @@ package com.BookStore.BookStoreApplication.controller;
 
 import com.BookStore.BookStoreApplication.exception.ProductNotFoundException;
 import com.BookStore.BookStoreApplication.model.Admin;
+import com.BookStore.BookStoreApplication.model.Order;
 import com.BookStore.BookStoreApplication.model.Product;
 import com.BookStore.BookStoreApplication.service.AdminService;
 import com.BookStore.BookStoreApplication.service.ProductService;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @RestController
 @RequestMapping("/bookstore_user/admin")
@@ -35,13 +37,15 @@ private ProductService productService;
      adminService.loginAdmin(adminName,password);
      return ResponseEntity.ok("admin logged in successfully");
 }
+
+
     @PostMapping("/add/book")
     public ResponseEntity<Product> addProduct(@Valid @RequestBody Product product) {
         return new ResponseEntity<>(productService.addProduct(product), HttpStatus.CREATED);
     }
 
     @PutMapping("/update/book/{product_id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable long id,@RequestBody Product product) {
+    public ResponseEntity<Product> updateProduct(@PathVariable ("product_id")long id,@RequestBody Product product) {
         if (productService.getAllProducts().stream().noneMatch(p -> p.getId() == id)) {
             throw new ProductNotFoundException("Product with id " + id + " not found");
         } else {
@@ -51,7 +55,7 @@ private ProductService productService;
     }
 
     @DeleteMapping("/delete/book/{product_id}")
-    public ResponseEntity<Object> deleteProduct(@PathVariable long id) {
+    public ResponseEntity<Object> deleteProduct(@PathVariable("product_id") long id) {
         if (productService.getAllProducts().stream().noneMatch(product -> product.getId() == id)) {
             throw new ProductNotFoundException("Product with id " + id + " not found");
         }else {
@@ -59,4 +63,11 @@ private ProductService productService;
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
     }
+
+    @GetMapping("/get/orders")
+    public List<Order> getAllOrders()
+    {
+        return adminService.getAllOrder();
+    }
+
 }

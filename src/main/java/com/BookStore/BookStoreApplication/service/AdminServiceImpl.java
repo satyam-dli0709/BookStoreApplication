@@ -2,15 +2,22 @@ package com.BookStore.BookStoreApplication.service;
 
 import com.BookStore.BookStoreApplication.exception.CustomInvalidException;
 import com.BookStore.BookStoreApplication.model.Admin;
+import com.BookStore.BookStoreApplication.model.Order;
 import com.BookStore.BookStoreApplication.repository.AdminRepository;
+import com.BookStore.BookStoreApplication.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 public class AdminServiceImpl implements  AdminService{
     @Autowired
     private AdminRepository adminRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
+
     @Override
     public Admin registerAdmin(Admin admin) {
         return adminRepository.save(admin);
@@ -36,5 +43,10 @@ public class AdminServiceImpl implements  AdminService{
                 throw new CustomInvalidException("Invalid credentials");
             }
         }
+
+    @Override
+    public List<Order> getAllOrder() {
+        return orderRepository.findAll();
+    }
 
 }
