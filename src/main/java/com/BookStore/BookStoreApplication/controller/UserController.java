@@ -25,8 +25,15 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestParam String username, @RequestParam String password) {
-         userService.loginUser(username,password);
-         return ResponseEntity.ok("User logged in successfully");
+       if(userService.loginUser(username,password))
+       {
+           return ResponseEntity.ok("User logged in successfully");
+       }
+       else
+       {
+           return ResponseEntity.ok("Invalid credintial");
+       }
+
     }
 
 

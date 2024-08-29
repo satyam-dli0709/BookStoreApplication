@@ -34,7 +34,7 @@ public class UserService {
 
 
         if (user != null) {
-            return passwordEncoder.matches(password, user.getUsername());
+            return passwordEncoder.matches(password, user.getPassword());
         }
         else
         {
