@@ -20,7 +20,7 @@ public class CustomerController {
         return ResponseEntity.ok(createdCustomerDetails);
     }
 
-    @PatchMapping("/EditCustomerDetails")
+    @PutMapping("/EditCustomerDetails")
     public ResponseEntity<CustomerDetails> updateCustomerDetails(@RequestParam Long id, @RequestBody CustomerDetails customerDetails) {
         try {
             CustomerDetails updatedCustomerDetails = customerService.updateCustomerDetails(id, customerDetails);

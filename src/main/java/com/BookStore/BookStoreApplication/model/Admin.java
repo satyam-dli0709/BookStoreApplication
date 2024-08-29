@@ -8,7 +8,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "Admin")
+@Table(name = "Admins")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -28,9 +28,6 @@ public class Admin {
 
     @Column (name = "created_at" , nullable = false)
     private Timestamp createdAt;
-
-
-
 
 }
 
