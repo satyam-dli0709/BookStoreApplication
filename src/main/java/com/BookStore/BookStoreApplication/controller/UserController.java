@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Timestamp;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/bookstore_user")
 public class UserController {
 
