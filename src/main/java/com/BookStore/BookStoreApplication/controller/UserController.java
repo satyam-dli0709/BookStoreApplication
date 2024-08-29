@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/bookstore_user")
 public class UserController {
 

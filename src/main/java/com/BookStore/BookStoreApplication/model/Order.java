@@ -20,29 +20,62 @@ import java.util.List;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "orderId")
 
 public class Order {
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    private long orderId ;
+//
+//    @OneToOne
+//    @JoinColumn ( name = "user_id" , nullable = false)
+//    private User user ;
+//    // user_id is foreign keu inside orders table
+//    // name of join column is the custom foreign key name inside order table , and it is the primary key of user table
+//    // otherwise by default name of foreign key will not be custom
+//    @Column (name = "total_amount" , nullable = false)
+//    private double totalAmount ;
+//
+//    @Enumerated(EnumType.STRING)
+//    @Column(name = "order_status" , nullable = false)
+//    private OrderStatus orderStatus;
+//
+//   @Column (name = "created_at" , nullable = false)
+//    private Timestamp createdAt;
+//
+//    @OneToMany(mappedBy = "orderItemsId", cascade = CascadeType.ALL,orphanRemoval = true)
+//    private List<OrderItems> OrderItems;
+//  // mapped by contains primary key of order item table
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long orderId ;
+    private long orderId;
 
-    @OneToOne
-    @JoinColumn ( name = "user_id" , nullable = false)
-    private User user ;
-    // user_id is foreign keu inside orders table
-    // name of join column is the custom foreign key name inside order table , and it is the primary key of user table
-    // otherwise by default name of foreign key will not be custom
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
     @Column (name = "total_amount" , nullable = false)
-    private double totalAmount ;
+    private double totalAmount;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "order_status" , nullable = false)
+    @Column(name = "order_status" ,nullable = false)
     private OrderStatus orderStatus;
 
-   @Column (name = "created_at" , nullable = false)
+    @Column (name = "created_at" , nullable = false)
     private Timestamp createdAt;
 
-    @OneToMany(mappedBy = "orderItemsId", cascade = CascadeType.ALL,orphanRemoval = true)
-    private List<OrderItems> OrderItems;
-  // mapped by contains primary key of order item table
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItems> orderItems;
+
+//    @Override
+//    public String toString() {
+//        return "Order{" +
+//                "id=" + id +
+//                ", user=" + (user != null ? user.getUser_id() : null) +
+//                ", totalAmount=" + totalAmount +
+//                ", orderStatus=" + orderStatus +
+//                ", createdAt=" + createdAt +
+//                ", orderItems=" + (orderItems != null ? orderItems.size() : 0) +
+//                '}';
+//    }
 
 }
 

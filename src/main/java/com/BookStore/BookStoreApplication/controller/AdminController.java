@@ -6,6 +6,7 @@ import com.BookStore.BookStoreApplication.model.Order;
 import com.BookStore.BookStoreApplication.model.Product;
 import com.BookStore.BookStoreApplication.service.AdminService;
 import com.BookStore.BookStoreApplication.service.AdminServiceImpl;
+import com.BookStore.BookStoreApplication.service.AdminServiceImpl;
 import com.BookStore.BookStoreApplication.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,7 +70,12 @@ private ProductService productService;
     public ResponseEntity<Object> deleteProduct(@RequestParam long id) {
         if (productService.getAllProducts().stream().noneMatch(product -> product.getId() == id)) {
             throw new ProductNotFoundException("Product with id " + id + " not found");
-        } else {
+        }
+//import java.util.List;
+
+
+
+    else {
             productService.deleteProduct(id);
             return new ResponseEntity<>("Deleted Successfully", HttpStatus.OK);
         }
@@ -80,5 +86,8 @@ private ProductService productService;
     {
         return adminService.getAllOrder();
     }
+
+
+
 
 }
