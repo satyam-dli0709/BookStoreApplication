@@ -21,11 +21,11 @@ public class WishlistItems {
     private long wishlistItemId;
 
     @NotNull
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name="wishlistId")
     private Wishlist wishlist;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @NotNull
     @JoinColumn(name="id")
     private Product product;
