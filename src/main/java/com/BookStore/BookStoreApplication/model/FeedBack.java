@@ -41,6 +41,11 @@ public class FeedBack {
     @JoinColumn(name= "id")
     private Product product;
 
-
-
+    public FeedBack(int rating, String text, Timestamp createdAt, User user, Product product) {
+        this.rating = rating;
+        this.text = text;
+        this.createdAt = createdAt;
+        this.user = user;
+        this.product = product;
+    }
 }

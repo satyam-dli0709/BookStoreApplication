@@ -45,7 +45,7 @@ private ProductService productService;
     }
 
     @PutMapping("/update/book/{product_id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable ("product_id")long id,@RequestBody Product product) {
+    public ResponseEntity<Product> updateProduct(@PathVariable long id,@RequestBody Product product) {
         if (productService.getAllProducts().stream().noneMatch(p -> p.getId() == id)) {
             throw new ProductNotFoundException("Product with id " + id + " not found");
         } else {
@@ -55,7 +55,7 @@ private ProductService productService;
     }
 
     @DeleteMapping("/delete/book/{product_id}")
-    public ResponseEntity<Object> deleteProduct(@PathVariable("product_id") long id) {
+    public ResponseEntity<Object> deleteProduct(@PathVariable long id) {
         if (productService.getAllProducts().stream().noneMatch(product -> product.getId() == id)) {
             throw new ProductNotFoundException("Product with id " + id + " not found");
         }else {

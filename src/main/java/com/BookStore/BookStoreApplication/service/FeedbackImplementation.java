@@ -32,12 +32,11 @@ public class FeedbackImplementation implements FeedbackService{
                 .orElseThrow(() -> new CustomInvalidException("Product not found"));
 
 
-        FeedBack feedBack1 = new FeedBack();
-        feedBack1.setProduct(product);
-        feedBack1.setUser(user);
-        feedBack1.setText(feedBack.getText());
-        feedBack1.setCreatedAt(feedBack.getCreatedAt());
-        feedBack1.setRating(feedBack.getRating());
+        FeedBack feedBack1 = new FeedBack
+                (feedBack.getRating(),
+                        feedBack.getText(),feedBack.getCreatedAt(),
+                        user,product);
+
 
         return feedbackRepository.save(feedBack1);
 
