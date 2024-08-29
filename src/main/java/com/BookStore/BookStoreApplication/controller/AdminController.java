@@ -36,8 +36,15 @@ private ProductService productService;
 
     @PostMapping("/login")
     public ResponseEntity<String> loginAdmin(@RequestParam String adminName, @RequestParam String password) {
-        adminService.loginAdmin(adminName, password);
-        return ResponseEntity.ok("admin logged in successfully");
+        if(adminService.loginAdmin(adminName, password))
+        {
+            return ResponseEntity.ok("admin logged in successfully");
+        }
+        else
+        {
+            return ResponseEntity.ok("Invalid Credentials");
+        }
+
     }
 
 
