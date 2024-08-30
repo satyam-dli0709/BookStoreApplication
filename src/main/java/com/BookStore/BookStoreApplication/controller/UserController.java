@@ -1,5 +1,6 @@
 package com.BookStore.BookStoreApplication.controller;
 
+import com.BookStore.BookStoreApplication.DTO.LoginDTO;
 import com.BookStore.BookStoreApplication.model.User;
 import com.BookStore.BookStoreApplication.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestParam String username, @RequestParam String password) {
-       if(userService.loginUser(username,password))
+    public ResponseEntity<String> loginUser(@RequestBody LoginDTO loginDTO) {
+       if(userService.loginUser(loginDTO.getUsername(), loginDTO.getPassword()))
        {
            return ResponseEntity.ok("User logged in successfully");
        }
