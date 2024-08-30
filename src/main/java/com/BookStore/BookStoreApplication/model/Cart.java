@@ -30,12 +30,19 @@ public class Cart {
     private Timestamp cartTimeStamp;
 
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "cart")
     private List<CartItem> cartItems;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name= "userId")
     private User user;
 
 
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "cartId=" + cartId +
+                ", cartTimeStamp=" + cartTimeStamp +
+                '}';
+    }
 }

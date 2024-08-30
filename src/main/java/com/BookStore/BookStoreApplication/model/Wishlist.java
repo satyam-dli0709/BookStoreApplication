@@ -34,4 +34,13 @@ public class Wishlist {
     @OneToMany(mappedBy = "wishlist", cascade = CascadeType.ALL,orphanRemoval = true)
     private List<WishlistItems> wishlistItems;
 
+    @Override
+    public String toString() {
+        return "Wishlist{" +
+                "wishlistId=" + wishlistId +
+                ", created_at=" + created_at +
+                ", user=" + user+
+                ", wishlistItem"+wishlistItems+
+                '}';
+    }
 }
