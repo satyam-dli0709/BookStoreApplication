@@ -516,3 +516,6 @@ Caused by: org.postgresql.util.PSQLException: ERROR: insert or update on table "
 2024-08-30 13:54:46 [restartedMain] INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
 2024-08-30 13:54:46 [restartedMain] INFO  c.B.B.BookStoreApplication - Started BookStoreApplication in 8.955 seconds (process running for 9.791)
 2024-08-30 15:27:53 [HikariPool-1 housekeeper] WARN  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h32m16s120ms973µs900ns).
+2024-08-30 15:33:18 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-30 15:33:18 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2024-08-30 15:33:18 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
