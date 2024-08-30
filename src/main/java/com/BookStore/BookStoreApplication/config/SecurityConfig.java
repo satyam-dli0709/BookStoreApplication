@@ -61,9 +61,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-
-
-
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/ignore1", "/ignore2");
