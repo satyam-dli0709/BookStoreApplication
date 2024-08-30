@@ -9,5 +9,6 @@ import java.util.List;
 @Service
 public interface OrderService {
 
-    Order placeOrder(long userId, List<OrderItems> cartItems);
+//    Order placeOrder(long userId, List<OrderItems> cartItems);
+Order placeOrder(long userId);
 }

@@ -34,4 +34,10 @@ public class WishlistItemsController {
          return new ResponseEntity<>(wishlistItemsService.findAllWishlistItems(), HttpStatus.OK);
     }
 
+    @GetMapping("/get_wishlist_items/{userId}")
+    public ResponseEntity<Wishlist> getWishlistByUserId(@PathVariable("userId") Long userId) {
+        Wishlist wishlist = wishlistItemsService.findWishlistByUserId(userId);
+        return new ResponseEntity<>(wishlist, HttpStatus.OK);
+    }
+
 }
