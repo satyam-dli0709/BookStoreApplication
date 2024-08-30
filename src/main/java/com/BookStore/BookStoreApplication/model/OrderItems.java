@@ -17,22 +17,8 @@ import java.math.BigDecimal;
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "orderItemsId")
 
 public class OrderItems {
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private long orderItemsId ;
-//
-//    @ManyToOne
-//    @JoinColumn(name = "order_id" , nullable = false)
-//    private Order order ;
-//    @Column (name = "quantity" , nullable = false)
-//    private int quantity ;
-//
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn (name = "id" , nullable = false)
-//    private Product product;
-//
-//    @Column(name = "price" , nullable = false)
-//    private double price ;
+
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,7 +28,7 @@ public class OrderItems {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "id", nullable = false)
     private Product product;
 
@@ -51,15 +37,14 @@ public class OrderItems {
 //    private Integer quantity;
     @Column(name = "price" , nullable = false)
     private double price ;
-  //  private BigDecimal price;
-//    @Override
-//    public String toString() {
-//        return "OrderItem{" +
-//                "id=" + id +
-//                ", order=" + (order != null ? order.getId() : null) +
-//                ", product=" + (product != null ? product.getId() : null) +
-//                ", quantity=" + quantity +
-//                ", price=" + price +
-//                '}';
-//    }
+
+    @Override
+    public String toString() {
+        return "OrderItems{" +
+                "orderItemsId=" + orderItemsId +
+                ", product=" + product +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                '}';
+    }
 }

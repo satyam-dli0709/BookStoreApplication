@@ -33,5 +33,13 @@ public class User {
     @Column(name = "created_at", nullable = false)
     private Timestamp createdAt;
 
-
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", createdAt=" + createdAt +
+                '}';
+    }
 }
