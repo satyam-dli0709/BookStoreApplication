@@ -59,6 +59,21 @@ public class Product {
     @PreUpdate
     protected void onUpdate() {
         updated_at = new Timestamp(System.currentTimeMillis());
+
     }
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", stock=" + stock +
+                ", author='" + author + '\'' +
+                ", category='" + category + '\'' +
+                ", created_at=" + created_at +
+                ", updated_at=" + updated_at +
+                '}';
+    }
 }

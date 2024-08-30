@@ -29,9 +29,15 @@ public class CartItem {
     @JoinColumn(name = "cartId")
     private Cart cart;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "id")
     private Product products;
 
-
+    @Override
+    public String toString() {
+        return "CartItem{" +
+                "cartItemId=" + cartItemId +
+                ", quantity=" + quantity +
+                '}';
+    }
 }

@@ -48,4 +48,5 @@ public class FeedBack {
         this.user = user;
         this.product = product;
     }
+
 }

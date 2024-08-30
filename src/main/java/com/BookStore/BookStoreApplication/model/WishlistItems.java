@@ -25,9 +25,17 @@ public class WishlistItems {
     @JoinColumn(name="wishlistId")
     private Wishlist wishlist;
 
+    @Override
+    public String toString() {
+        return "WishlistItems{" +
+                "wishlistItemId=" + wishlistItemId +
+                '}';
+    }
+
     @OneToOne(cascade = CascadeType.ALL)
     @NotNull
     @JoinColumn(name="id")
     private Product product;
+
 
 }

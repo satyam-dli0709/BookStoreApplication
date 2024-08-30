@@ -16,21 +16,10 @@ import java.util.List;
 @RestController
 @RequestMapping("/bookstore_user")
 public class OrderController {
-//   @Autowired
-//    OrderService orderService ;
-//   @Autowired
-//   OrderProcessingService orderProcessingService;
-//
-//
-//   @PostMapping("/add/order")
-//   public Order addOrder(@RequestParam long userId, @RequestBody List<OrderItems> orders)
-//   {
-//       return orderProcessingService.placeOrder(userId,orders);
-//   }
 @Autowired
 OrderService orderService;
     @PostMapping("/add/order")
-    public Order placeOrder(@RequestBody Long userId) {
+    public Order placeOrder(@RequestParam Long userId) {
         return orderService.placeOrder(userId);
     }
 

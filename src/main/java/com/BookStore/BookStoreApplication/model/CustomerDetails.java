@@ -38,5 +38,4 @@ public class CustomerDetails {
     @JoinColumn(name = "userId")
     private User user;
 
-
 }
