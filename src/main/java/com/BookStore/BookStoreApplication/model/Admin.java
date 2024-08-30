@@ -1,5 +1,7 @@
 package com.BookStore.BookStoreApplication.model;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,12 +20,15 @@ public class Admin {
     private  long adminId ;
 
     @Column (unique = true , nullable = false)
+    @Pattern(regexp = "^[a-zA-Z0-9]{5,15}$", message = "username must be alphanumeric and between 5 to 15 characters long")
     private String adminName ;
 
     @Column (unique = true , nullable = false)
+    @Pattern(regexp = "^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$", message = "Invalid email")
     private String email;
 
     @Column (nullable = false)
+    @Size(min = 6 , max = 15 , message = "password must be between 8 to 15 characters long")
     private String password ;
 
     @Column (name = "created_at" , nullable = false)
