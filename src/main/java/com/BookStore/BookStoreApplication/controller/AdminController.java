@@ -18,6 +18,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/bookstore_user/admin")
 public class AdminController {
 @Autowired

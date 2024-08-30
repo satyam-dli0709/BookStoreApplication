@@ -9,7 +9,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
+@CrossOrigin
 @RequestMapping("/bookstore_user")
 public class ProductController {
 
@@ -20,4 +23,23 @@ public class ProductController {
     public ResponseEntity<Object> getAllProducts(){
         return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
     }
+
+    @GetMapping("/lowtohigh")
+    public List<Product> getLowToHigh()
+    {
+        return productService.getLowToHigh();
+    }
+    @GetMapping("/hightolow")
+    public List<Product> getHighToLow()
+    {
+        return productService.getHighToLow();
+    }
+
+    @GetMapping("/newarival")
+    public List<Product> getNewestArvial()
+    {
+        return productService.getNewestArival();
+    }
+
+
 }
