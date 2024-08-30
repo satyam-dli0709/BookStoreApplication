@@ -54,13 +54,20 @@ public class WishlistItemsServiceImpl implements WishlistItemService{
     }
 
     @Override
+    public Wishlist findWishlistByUserId(long userId) {
+        return wishlistRepository.findByUserId(userId)
+                .orElseThrow(() -> new ProductNotFoundException("Wishlist not found for user id: " + userId));
+    }
+
+    @Override
     public void removeWishlistItem(long productId) {
+
         wishlistItemsRepository.deleteById(productId);
     }
 
     public List<WishlistItems> findAllWishlistItems() {
+
         return wishlistItemsRepository.findAll();
     }
-
 
 }

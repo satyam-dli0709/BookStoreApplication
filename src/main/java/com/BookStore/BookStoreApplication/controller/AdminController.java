@@ -40,7 +40,8 @@ private ProductService productService;
     public ResponseEntity<String> loginAdmin(@RequestParam String adminName, @RequestParam String password) {
         if(adminService.loginAdmin(adminName, password))
         {
-            return ResponseEntity.ok("admin logged in successfully");
+            String token = adminService.generateToken(adminName);
+            return new ResponseEntity<>("Login sucess , Token --> "+token, HttpStatus.OK);
         }
         else
         {
@@ -48,7 +49,6 @@ private ProductService productService;
         }
 
     }
-
 
     @PostMapping("/add/book")
     public ResponseEntity<Object> addProduct(@Valid @RequestBody Product product) {
@@ -72,9 +72,6 @@ private ProductService productService;
         if (productService.getAllProducts().stream().noneMatch(product -> product.getId() == id)) {
             throw new ProductNotFoundException("Product with id " + id + " not found");
         }
-//import java.util.List;
-
-
 
     else {
             productService.deleteProduct(id);
@@ -87,8 +84,5 @@ private ProductService productService;
     {
         return adminService.getAllOrder();
     }
-
-
-
 
 }
