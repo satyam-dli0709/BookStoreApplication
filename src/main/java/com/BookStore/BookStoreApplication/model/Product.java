@@ -49,10 +49,6 @@ public class Product {
     @Column(name = "updated_at")
     private Timestamp updated_at;
 
-    @OneToOne(mappedBy = "products", cascade = CascadeType.ALL,orphanRemoval = true)
-    private CartItem cartItem;
-
-
 
     @PrePersist
     protected void onCreate() {
