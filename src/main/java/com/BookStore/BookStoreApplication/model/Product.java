@@ -43,11 +43,12 @@ public class Product {
     @Column(name = "category")
     private String category;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at",updatable = false)
     private Timestamp created_at;
 
     @Column(name = "updated_at")
     private Timestamp updated_at;
+
 
 
     @PrePersist

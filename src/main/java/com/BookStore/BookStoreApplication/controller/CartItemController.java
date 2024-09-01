@@ -7,6 +7,7 @@ import com.BookStore.BookStoreApplication.service.CartImplementation;
 import jakarta.validation.Valid;
 import jdk.dynalink.linker.LinkerServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,9 +36,10 @@ public class CartItemController {
     }
 
     @DeleteMapping("/remove_cart_item")
-    public void removeCartItem(@RequestParam long cartItemId)
+    public ResponseEntity<Object> removeCartItem(@RequestParam long cartItemId)
     {
         cartImplementation.removeCartItem(cartItemId);
+        return new ResponseEntity<>("CartItem successfully Deleted",HttpStatus.OK);
     }
 
     @GetMapping("/get_cart_items")

@@ -4,6 +4,7 @@ import com.BookStore.BookStoreApplication.model.CustomerDetails;
 import com.BookStore.BookStoreApplication.service.CustomerService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,9 +22,9 @@ public class CustomerController {
     }
 
     @PutMapping("/EditCustomerDetails")
-    public ResponseEntity<CustomerDetails> updateCustomerDetails(@RequestParam Long id, @RequestBody CustomerDetails customerDetails) {
+    public ResponseEntity<CustomerDetails> updateCustomerDetails(@RequestParam Long userId, @RequestBody CustomerDetails customerDetails) {
         try {
-            CustomerDetails updatedCustomerDetails = customerService.updateCustomerDetails(id, customerDetails);
+            CustomerDetails updatedCustomerDetails = customerService.updateCustomerDetails(userId, customerDetails);
             return ResponseEntity.ok(updatedCustomerDetails);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
@@ -31,7 +32,8 @@ public class CustomerController {
     }
 
     @DeleteMapping("/CustomerDetails/{id}")
-    public boolean getCustomerDetails(@PathVariable Long id) {
-        return customerService.DeleteCustomerDetails(id);
+    public ResponseEntity<Object> getCustomerDetails(@PathVariable Long id) {
+         customerService.DeleteCustomerDetails(id);
+         return new ResponseEntity<>("Customer deleted Successfully",HttpStatus.OK);
     }
 }

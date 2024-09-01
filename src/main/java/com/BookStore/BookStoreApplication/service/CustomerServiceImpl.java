@@ -28,8 +28,8 @@ CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDetails updateCustomerDetails(Long id, CustomerDetails customerDetails) {
-        CustomerDetails existingDetails = customerRepository.findById(id).orElse(null);
+    public CustomerDetails updateCustomerDetails(Long userId, CustomerDetails customerDetails) {
+        CustomerDetails existingDetails = customerRepository.findById(userId).orElse(null);
         if (existingDetails != null) {
             existingDetails.setAddress(customerDetails.getAddress());
             existingDetails.setCustomerName(customerDetails.getCustomerName());
@@ -39,7 +39,7 @@ CustomerServiceImpl implements CustomerService {
             existingDetails.setUser(user);
             return customerRepository.save(existingDetails);
         } else {
-            throw new CustomerNotFoundException("Customer not found with id " + id);
+            throw new CustomerNotFoundException("Customer not found with id " + userId);
         }
     }
 
