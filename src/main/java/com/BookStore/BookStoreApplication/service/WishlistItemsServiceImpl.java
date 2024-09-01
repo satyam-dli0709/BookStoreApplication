@@ -13,61 +13,93 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class WishlistItemsServiceImpl implements WishlistItemService{
-    @Autowired
-    private WishlistItemsRepository wishlistItemsRepository;
-
+public class WishlistItemsServiceImpl implements WishlistItemService {
     @Autowired
     private WishlistRepository wishlistRepository;
 
     @Autowired
-    private UserRepository userRepository;
+    private WishlistItemsRepository wishlistItemRepository;
 
     @Autowired
     private ProductRepository productRepository;
 
-    public Wishlist addProductToWishlist(long userId, long productId) {
-        Wishlist wishlist = wishlistRepository.findByUserId(userId)
-                .orElseGet(() -> new Wishlist());
+    @Autowired
+    private UserRepository userRepository;
 
-        Product product = productRepository.findById(productId)
+//    @Autowired
+//   Wishlist wishlist;
+
+    @Override
+    public Wishlist AddproducttoWishlist(Long userId, Long id) {
+        Wishlist wishlist = wishlistRepository.findByUserId(userId)
+                .orElseGet(() -> {
+                    Wishlist newWishlist = new Wishlist();
+                    newWishlist.setCreated_at(Timestamp.valueOf(LocalDateTime.now()));
+                    newWishlist.setWishlistItems(new ArrayList<>()); // Initialize the wishlistItems list
+                    return newWishlist;
+                });
+
+        Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found"));
 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ProductNotFoundException("User not found"));
+
         wishlist.setUser(user);
-        wishlist.setCreated_at(new Timestamp(System.currentTimeMillis()));
-        wishlistRepository.save(wishlist);
+        wishlist = wishlistRepository.save(wishlist);
+        boolean productExists = false;
+        String targetId = String.valueOf(id);
+
+        for (WishlistItems item : wishlist.getWishlistItems()) {
+            if (String.valueOf(item.getProduct().getId()).contentEquals(targetId)) {
+                productExists = true;
+                break;
+            }
+        }
+
+        if (productExists) {
+            throw new ProductNotFoundException("Product already in wishlist");
+        }
+
         WishlistItems wishlistItem = new WishlistItems();
         wishlistItem.setProduct(product);
         wishlistItem.setWishlist(wishlist);
-        wishlistItemsRepository.save(wishlistItem);
-
+        wishlistItemRepository.save(wishlistItem);
         wishlist.getWishlistItems().add(wishlistItem);
         wishlistRepository.save(wishlist);
 
         return wishlist;
     }
 
-    @Override
-    public Wishlist findWishlistByUserId(long userId) {
-        return wishlistRepository.findByUserId(userId)
-                .orElseThrow(() -> new ProductNotFoundException("Wishlist not found for user id: " + userId));
-    }
+
+
+//    @Autowired
+//    private WishlistItemsRepository wishlistItemsRepository;
+
 
     @Override
-    public void removeWishlistItem(long productId) {
-
-        wishlistItemsRepository.deleteById(productId);
+    public void removeWishlistItem(long wishlistItemId) {
+        wishlistItemRepository.deleteById(wishlistItemId);
     }
 
     public List<WishlistItems> findAllWishlistItems() {
-
-        return wishlistItemsRepository.findAll();
+        return wishlistItemRepository.findAll();
     }
 
+    @Override
+    public Optional<Wishlist> findWishlistItemsByUserId(Long userId) {
+        return wishlistRepository.findByUserId(userId);
+    }
+
+    @Override
+    public WishlistItems findWishlistItemById(Long wishlistItemId) {
+        return wishlistItemRepository.findByWishlistItemId(wishlistItemId);
+    }
 }
+
