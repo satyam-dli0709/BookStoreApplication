@@ -26,12 +26,12 @@ public class Wishlist {
     @Column(name = "created_at")
     private Timestamp created_at;
 
-    @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToOne
     @JoinColumn(name = "userId")
     @NotNull
     private User user;
 
-    @OneToMany(mappedBy = "wishlist", cascade = CascadeType.ALL,orphanRemoval = true)
+    @OneToMany(mappedBy = "wishlist", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<WishlistItems> wishlistItems;
 
     @Override
