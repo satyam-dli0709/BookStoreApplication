@@ -27,14 +27,14 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<String> loginUser(@RequestBody LoginDTO loginDTO) {
-       if(userService.loginUser(loginDTO.getUsername(), loginDTO.getPassword()))
-       {
-           return ResponseEntity.ok("User logged in successfully");
-       }
-       else
-       {
-           return ResponseEntity.ok("Invalid credintial");
-       }
+        if(userService.loginUser(loginDTO.getUsername(), loginDTO.getPassword()))
+        {
+            return ResponseEntity.ok("User logged in successfully");
+        }
+        else
+        {
+            return ResponseEntity.ok("Invalid credintial");
+        }
 
     }
 
