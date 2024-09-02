@@ -8,11 +8,12 @@ import java.util.List;
 import java.util.Optional;
 
 public interface WishlistItemService {
-    void removeWishlistItem(long productId);
+    Wishlist AddproducttoWishlist(Long userId, Long id);
+    void removeWishlistItem(long id);
 
     List<WishlistItems> findAllWishlistItems();
 
-    Wishlist addProductToWishlist(long userId, long productId);
+    Optional<Wishlist> findWishlistItemsByUserId(Long userId);
 
-    Wishlist findWishlistByUserId(long userId);
+    WishlistItems findWishlistItemById(Long wishlistItemId);
 }
