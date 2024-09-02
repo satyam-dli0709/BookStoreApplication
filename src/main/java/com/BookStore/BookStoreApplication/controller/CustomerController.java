@@ -22,9 +22,9 @@ public class CustomerController {
     }
 
     @PutMapping("/EditCustomerDetails")
-    public ResponseEntity<CustomerDetails> updateCustomerDetails(@RequestParam Long userId, @RequestBody CustomerDetails customerDetails) {
+    public ResponseEntity<CustomerDetails> updateCustomerDetails(@RequestParam Long customerId, @RequestBody CustomerDetails customerDetails) {
         try {
-            CustomerDetails updatedCustomerDetails = customerService.updateCustomerDetails(userId, customerDetails);
+            CustomerDetails updatedCustomerDetails = customerService.updateCustomerDetails(customerId, customerDetails);
             return ResponseEntity.ok(updatedCustomerDetails);
         } catch (RuntimeException e) {
             return ResponseEntity.notFound().build();
@@ -32,8 +32,8 @@ public class CustomerController {
     }
 
     @DeleteMapping("/CustomerDetails/{id}")
-    public ResponseEntity<Object> getCustomerDetails(@PathVariable Long id) {
-         customerService.DeleteCustomerDetails(id);
+    public ResponseEntity<Object> deleteCustomerDetails(@PathVariable("id") Long customerId) {
+         customerService.DeleteCustomerDetails(customerId);
          return new ResponseEntity<>("Customer deleted Successfully",HttpStatus.OK);
     }
 }

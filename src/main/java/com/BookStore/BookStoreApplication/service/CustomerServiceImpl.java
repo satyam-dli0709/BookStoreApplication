@@ -28,8 +28,8 @@ CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDetails updateCustomerDetails(Long userId, CustomerDetails customerDetails) {
-        CustomerDetails existingDetails = customerRepository.findById(userId).orElse(null);
+    public CustomerDetails updateCustomerDetails(Long customerId, CustomerDetails customerDetails) {
+        CustomerDetails existingDetails = customerRepository.findById(customerId).orElse(null);
         if (existingDetails != null) {
             existingDetails.setAddress(customerDetails.getAddress());
             existingDetails.setCustomerName(customerDetails.getCustomerName());
@@ -39,17 +39,17 @@ CustomerServiceImpl implements CustomerService {
             existingDetails.setUser(user);
             return customerRepository.save(existingDetails);
         } else {
-            throw new CustomerNotFoundException("Customer not found with id " + userId);
+            throw new CustomerNotFoundException("Customer not found with id " + customerId);
         }
     }
 
     @Override
-    public boolean DeleteCustomerDetails(Long id) {
-        CustomerDetails customer_details = customerRepository.findById(id).orElse(null);
+    public boolean DeleteCustomerDetails(Long customerId) {
+        CustomerDetails customer_details = customerRepository.findById(customerId).orElse(null);
         if (customer_details == null) {
-            throw new CustomerNotFoundException("Customer not found with id " + id);
+            throw new CustomerNotFoundException("Customer not found with id " + customerId);
         } else {
-            customerRepository.deleteById(id);
+            customerRepository.deleteById(customerId);
             return true;
 
         }
