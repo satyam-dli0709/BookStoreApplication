@@ -34,7 +34,7 @@ public class CustomerDetails {
     @NotNull
     private String phoneNumber;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "userId")
     private User user;
 

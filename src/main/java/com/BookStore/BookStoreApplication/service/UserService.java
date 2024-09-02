@@ -4,9 +4,7 @@ import com.BookStore.BookStoreApplication.exception.CustomInvalidException;
 import com.BookStore.BookStoreApplication.model.User;
 import com.BookStore.BookStoreApplication.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.sql.Timestamp;
 
 @Service
 public class UserService {
@@ -14,30 +12,22 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    PasswordEncoder passwordEncoder;
-
     public User registerUser(User user) {
-
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        String username = user.getUsername();
-        if (userRepository.findByUsername(username)!=null) {
-            throw new CustomInvalidException("User with this Username already exists.");
-        }
-        User saveUser=userRepository.save(user);
-        return saveUser;
+        return userRepository.save(user);
     }
-    public boolean loginUser(String userName, String password) {
-        User user1 = userRepository.findByUsername(userName);
-        if (user1 == null) {
-            throw new CustomInvalidException("Invalid UserName and Password");
+    public User loginUser(String userName , String password)
+    {
+        User userId = userRepository.findByUsername(userName);
+        User user = userRepository.findById(userId.getUserId()).orElseThrow(()->new CustomInvalidException("User not found"));
+
+        if(user.getPassword().equals(password))
+        {
+            return user;
+        }
+        else
+        {
+            throw new CustomInvalidException("Invalid Password");
         }
 
-        User user = userRepository.findById(user1.getUserId()).orElse(null);
-        if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
-            throw new CustomInvalidException("Invalid UserName and Password");
-        }
-
-        return true;
     }
 }

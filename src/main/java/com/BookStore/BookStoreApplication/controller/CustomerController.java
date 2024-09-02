@@ -27,7 +27,7 @@ public class CustomerController {
             CustomerDetails updatedCustomerDetails = customerService.updateCustomerDetails(userId, customerDetails);
             return ResponseEntity.ok(updatedCustomerDetails);
         } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(null);
         }
     }
 
