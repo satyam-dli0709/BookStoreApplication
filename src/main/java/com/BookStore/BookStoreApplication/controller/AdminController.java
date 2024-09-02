@@ -30,10 +30,11 @@ private ProductService productService;
 
 
     @PostMapping("/registration")
-    public ResponseEntity<Admin> registerAdmin(@RequestBody Admin admin) {
+    public ResponseEntity<Object> registerAdmin(@RequestBody Admin admin) {
         admin.setCreatedAt(new Timestamp(System.currentTimeMillis()));
         Admin registeredAdmin = adminService.registerAdmin(admin);
-        return ResponseEntity.ok(registeredAdmin);
+        // ResponseEntity.ok(registeredAdmin);
+         return new ResponseEntity<>("admin registered successfully",HttpStatus.OK);
     }
 
     @PostMapping("/login")

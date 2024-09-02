@@ -50,6 +50,7 @@ public class Product {
     private Timestamp updated_at;
 
 
+
     @PrePersist
     protected void onCreate() {
         created_at = new Timestamp(System.currentTimeMillis());
