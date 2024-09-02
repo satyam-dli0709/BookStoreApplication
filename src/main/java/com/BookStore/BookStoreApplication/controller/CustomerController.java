@@ -31,7 +31,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/CustomerDetails/{id}")
-    public boolean getCustomerDetails(@PathVariable Long id) {
+    public boolean getCustomerDetails(@PathVariable("id") Long id) {
         return customerService.DeleteCustomerDetails(id);
     }
 }

@@ -27,18 +27,17 @@ public class UserService {
         User saveUser=userRepository.save(user);
         return saveUser;
     }
-    public boolean loginUser(String userName , String password)
-    {
+    public boolean loginUser(String userName, String password) {
         User user1 = userRepository.findByUsername(userName);
+        if (user1 == null) {
+            throw new CustomInvalidException("Invalid UserName and Password");
+        }
+
         User user = userRepository.findById(user1.getUserId()).orElse(null);
-
-
-        if (user != null) {
-            return passwordEncoder.matches(password, user.getPassword());
+        if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
+            throw new CustomInvalidException("Invalid UserName and Password");
         }
-        else
-        {
-           throw  new CustomInvalidException("Invalid UserName and Password");
-        }
+
+        return true;
     }
 }
